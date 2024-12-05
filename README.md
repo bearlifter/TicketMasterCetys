@@ -3,7 +3,7 @@ Repositorio para proyecto Desarrollo Ágil
 
 
 Para correr solo es necesario entrar a las carpetas 
-
+	
 client y server y correr
 
 `npm install` y `npm run dev`
@@ -15,6 +15,7 @@ MONGODB_URI=
 JWT_SECRET=
 NODE_ENV=
 `
+
 ㅤㅤㅤㅤㅤㅤMe:ㅤㅤㅤㅤㅤㅤㅤ 
 ⠀⠀⠀⠀⠀⠀⠀⣠⣶⣶⣦⡀
 ⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
