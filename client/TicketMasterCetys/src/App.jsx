@@ -1,12 +1,13 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import ProtectedRoute from './components/auth/ProtectedRoute';
-import Layout from './components/layout/Layout';
-import Login from './pages/auth/Login';
-import Register from './pages/auth/Register';
-import Home from './pages/Home';
-import Rooms from './pages/Rooms';
-import Reservations from './pages/Reservations';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import Layout from "./components/layout/Layout";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import Home from "./pages/Home";
+import Rooms from "./pages/Rooms";
+import Reservations from "./pages/Reservations";
+import ManageRooms from "./pages/ManageRooms";
 
 function App() {
   return (
@@ -17,16 +18,30 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="rooms" element={
-              <ProtectedRoute>
-                <Rooms />
-              </ProtectedRoute>
-            } />
-            <Route path="reservations" element={
-              <ProtectedRoute>
-                <Reservations />
-              </ProtectedRoute>
-            } />
+            <Route
+              path="rooms"
+              element={
+                <ProtectedRoute>
+                  <Rooms />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/manage-rooms"
+              element={
+                <ProtectedRoute>
+                  <ManageRooms />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="reservations"
+              element={
+                <ProtectedRoute>
+                  <Reservations />
+                </ProtectedRoute>
+              }
+            />
           </Route>
         </Routes>
       </BrowserRouter>

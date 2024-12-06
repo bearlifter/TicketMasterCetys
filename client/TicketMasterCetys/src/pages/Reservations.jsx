@@ -1,10 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
-import api from '../lib/axios';
+import { useQuery } from "@tanstack/react-query";
+import api from "../lib/axios";
 
 export default function Reservations() {
   const { data: reservations, isLoading } = useQuery({
-    queryKey: ['reservations'],
-    queryFn: () => api.get('/reservations/me').then(res => res.data)
+    queryKey: ["reservations"],
+    queryFn: () => api.get("/reservations/me").then((res) => res.data),
   });
 
   if (isLoading) {
@@ -28,13 +28,15 @@ export default function Reservations() {
                 </h2>
                 <p className="text-gray-600">{reservation.reason}</p>
                 <p className="text-sm text-gray-500">
-                  {new Date(reservation.startTime).toLocaleString()} - 
+                  {new Date(reservation.startTime).toLocaleString()} -
                   {new Date(reservation.endTime).toLocaleString()}
                 </p>
               </div>
-              <button 
+              <button
                 className="text-red-600 hover:text-red-800"
-                onClick={() => {/* Cancelar reservación */}}
+                onClick={() => {
+                  /* Cancelar reservación */
+                }}
               >
                 Cancelar
               </button>

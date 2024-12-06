@@ -1,23 +1,33 @@
-import { useForm } from 'react-hook-form';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { reservationService } from '../../services/reservationService';
+import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { reservationService } from "../../services/reservationService";
 
 export default function ReservationForm({ room, onSuccess, onCancel }) {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const queryClient = useQueryClient();
 
+  // Configuración de la mutación para crear una reserva
   const mutation = useMutation({
     mutationFn: reservationService.createReservation,
     onSuccess: () => {
-      queryClient.invalidateQueries(['reservations']);
-      onSuccess?.();
-    }
+      queryClient.invalidateQueries(["rooms"]); // Actualiza las queries relacionadas
+      reset(); // Limpia el formulario
+      onSuccess?.(); // Llama a la función onSuccess proporcionada
+    },
+    onError: (error) => {
+      alert(
+        `Error: ${
+          error.response?.data?.message || "No se pudo crear la reserva."
+        }`
+      );
+    },
   });
 
+  // Manejo del envío del formulario
   const onSubmit = (data) => {
     mutation.mutate({
       roomId: room._id,
-      ...data
+      ...data,
     });
   };
 
@@ -27,7 +37,7 @@ export default function ReservationForm({ room, onSuccess, onCancel }) {
         <label className="block text-sm font-medium">Fecha y Hora Inicio</label>
         <input
           type="datetime-local"
-          {...register('startTime')}
+          {...register("startTime", { required: true })}
           className="mt-1 block w-full rounded-md border-gray-300"
         />
       </div>
@@ -36,7 +46,7 @@ export default function ReservationForm({ room, onSuccess, onCancel }) {
         <label className="block text-sm font-medium">Fecha y Hora Fin</label>
         <input
           type="datetime-local"
-          {...register('endTime')}
+          {...register("endTime", { required: true })}
           className="mt-1 block w-full rounded-md border-gray-300"
         />
       </div>
@@ -44,7 +54,7 @@ export default function ReservationForm({ room, onSuccess, onCancel }) {
       <div>
         <label className="block text-sm font-medium">Razón</label>
         <textarea
-          {...register('reason')}
+          {...register("reason", { required: true })}
           className="mt-1 block w-full rounded-md border-gray-300"
         />
       </div>
